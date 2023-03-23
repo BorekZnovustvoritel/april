@@ -106,17 +106,19 @@ class April(commands.Cog):
                 Nicknames.add(member, ctx.guild)
                 try:
                     await member.edit(nick=f"Deleted user {April._generate_hex()}")
-                except Exception as e:
+                except Exception:
                     await ctx.reply(
                         _(ctx, "Cannot edit {username}'s nickname.").format(
                             username=member.display_name
                         )
                     )
-        new_roles = [ctx.guild.get_role(c.new_role_id) for c in res]
-        new_roles = [r for r in new_roles if r]
         positions = dict()
-        for role in new_roles:
-            positions.update({role: pos_for_new_roles})
+        for role_cfg in res:
+            if role_cfg.to_be_deleted:
+                continue
+            role = ctx.guild.get_role(role_cfg.new_role_id)
+            if role:
+                positions.update({role: pos_for_new_roles})
         await ctx.guild.edit_role_positions(positions)
         await ctx.reply(_(ctx, "Let's goo!"))
 
@@ -125,51 +127,52 @@ class April(commands.Cog):
     @april.command(name="stop")
     async def april_stop(self, ctx):
         """Enough is enough."""
-        role_configs = AprilConfig.get_all(ctx.guild)
-        roles_to_be_deleted = filter(lambda x: x.to_be_deleted, role_configs)
-        for role_conf in roles_to_be_deleted:
-            role = ctx.guild.get_role(role_conf.new_role_id)
-            if not role:
-                continue
-            try:
-                await role.delete()
-                AprilConfig.remove(ctx.guild, role_conf.role_id)
-            except Exception:
-                await ctx.reply(
-                    _(ctx, "I had some problems deleting the role {role}.").format(
-                        role=role
-                    )
-                )
-        other_roles = filter(lambda x: not x.to_be_deleted, role_configs)
-        for role_conf in other_roles:
-            role = ctx.guild.get_role(role_conf.new_role_id)
-            if not role:
-                continue
-            for member in role.members:
+        async with ctx.channel.typing():
+            role_configs = AprilConfig.get_all(ctx.guild)
+            roles_to_be_deleted = filter(lambda x: x.to_be_deleted, role_configs)
+            for role_conf in roles_to_be_deleted:
+                role = ctx.guild.get_role(role_conf.new_role_id)
+                if not role:
+                    continue
                 try:
-                    await member.remove_roles(role)
-                    await asyncio.sleep(0.02)  # To prevent rate limiting
+                    await role.delete()
+                    AprilConfig.remove(ctx.guild, role_conf.role_id)
                 except Exception:
                     await ctx.reply(
-                        _(
-                            ctx,
-                            "I had some problems unassigning role {role} from user {member}",
-                        ).format(role=role, member=member.display_name)
+                        _(ctx, "I had some problems deleting the role {role}.").format(
+                            role=role
+                        )
                     )
-        nicks = Nicknames.get_all(ctx.guild)
-        for nick in nicks:
-            member = await ctx.guild.fetch_member(nick.user_id)
-            if not member:
-                continue
-            try:
-                await member.edit(nick=nick.old_nickname)
-            except Exception:
-                await ctx.reply(
-                    _(ctx, "Cannot edit {username}'s nickname.").format(
-                        username=member.display_name
+            other_roles = filter(lambda x: not x.to_be_deleted, role_configs)
+            for role_conf in other_roles:
+                role = ctx.guild.get_role(role_conf.new_role_id)
+                if not role:
+                    continue
+                for member in role.members:
+                    try:
+                        await member.remove_roles(role)
+                        await asyncio.sleep(0.02)  # To prevent rate limiting
+                    except Exception:
+                        await ctx.reply(
+                            _(
+                                ctx,
+                                "I had some problems unassigning role {role} from user {member}",
+                            ).format(role=role, member=member.display_name)
+                        )
+            nicks = Nicknames.get_all(ctx.guild)
+            for nick in nicks:
+                member = await ctx.guild.fetch_member(nick.user_id)
+                if not member:
+                    continue
+                try:
+                    await member.edit(nick=nick.old_nickname)
+                except Exception:
+                    await ctx.reply(
+                        _(ctx, "Cannot edit {username}'s nickname.").format(
+                            username=member.display_name
+                        )
                     )
-                )
-        Nicknames.delete_all(ctx.guild)
+            Nicknames.delete_all(ctx.guild)
         await ctx.reply(_(ctx, "Bye bye."))
 
     @commands.Cog.listener()
