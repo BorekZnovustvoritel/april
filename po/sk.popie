@@ -4,29 +4,41 @@ msgstr Aha.
 msgid Done that.
 msgstr Megcsináltam.
 
-msgid Yes
-msgstr Igen
+msgid Active
+msgstr Aktív
 
-msgid No
-msgstr Nem
+msgid Inactive
+msgstr Inaktív
 
 msgid Server
 msgstr Szerver
 
-msgid Role
-msgstr Szerep
+msgid Old role
+msgstr Régi szerep
 
-msgid ID
-msgstr Identifikárosz
+msgid New role
+msgstr Új szerep
 
 msgid Already running, bruh.
 msgstr Már fut, breh.
+
+msgid Nothing is configured.
+msgstr Semmi sincs beállítva.
 
 msgid Cannot edit {username}'s nickname.
 msgstr Nem szerkeszthető {username} beceneve.
 
 msgid Let's goo!
 msgstr Menjünk!
+
+msgid I had some problems deleting the role {role}.
+msgstr Problémám akadt a(z) {role} szerepkör törlésével.
+
+msgid I had some problems unassigning role {role} from user {member}
+msgstr Problémáim akadtak a(z) {role} szerepkör {member} felhasználótól való kiosztásának visszavonásakor
+
+msgid Bye bye.
+msgstr Viszlát.
 
 msgid MODs are dead. Long live the {rolename}s.
 msgstr A MOD-ok halottak. Éljenek a {rolename}-ek.
@@ -75,3 +87,15 @@ msgstr Frodó, nálad van a kardom, az íjam és a kalapácsom. Ami azt illeti, 
 
 msgid Congratulations! Your role is: {rolename}. Oh. My condolences.
 msgstr Gratulálunk! Az Ön szerepköre: {rolename}. Ó. Részvétem.
+
+msgid Are we happy?
+msgstr Boldogok vagyunk?
+
+msgid The offensive was successful and the MET army took over FEKT and this server. Glory to the General MET. :generalMET:
+msgstr Az offenzíva sikeres volt, és a MET hadsereg átvette a FEKT-t és ezt a szervert. Dicsőség a MET tábornoknak. :generalMET:
+
+msgid You too can become an ethical hacker.
+msgstr Ön is etikus hackerré válhat.
+
+msgid You cannot make mistake here.
+msgstr Itt nem hibázhatsz.

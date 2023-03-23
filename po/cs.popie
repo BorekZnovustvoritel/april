@@ -4,29 +4,41 @@ msgstr Jop.
 msgid Done that.
 msgstr Hotovo.
 
-msgid Yes
-msgstr Ano
+msgid Active
+msgstr Aktivní
 
-msgid No
-msgstr Ne
+msgid Inactive
+msgstr Neaktivní
 
 msgid Server
 msgstr Server
 
-msgid Role
-msgstr Role
+msgid Old role
+msgstr Stará role
 
-msgid ID
-msgstr ID
+msgid New role
+msgstr Nová role
 
 msgid Already running, bruh.
 msgstr Však už běžím, voe.
+
+msgid Nothing is configured.
+msgstr Nic není nastaveno.
 
 msgid Cannot edit {username}'s nickname.
 msgstr Nemůžu změnit přezdívku uživatele {username}.
 
 msgid Let's goo!
 msgstr Jdem na too!
+
+msgid I had some problems deleting the role {role}.
+msgstr Nepodařilo se smazat roli {role}.
+
+msgid I had some problems unassigning role {role} from user {member}
+msgstr Nepodařilo se odebrat roli {role} uživateli {member}.
+
+msgid Bye bye.
+msgstr Naskle.
 
 msgid MODs are dead. Long live the {rolename}s.
 msgstr MODi jsou mrtví. Ať žijí {rolename}i.
@@ -75,3 +87,15 @@ msgstr Frodo, máš mů meč, můj luk a můj banhammer. Teda raši ne. To posle
 
 msgid Congratulations! Your role is: {rolename}. Oh. My condolences.
 msgstr Gratuluju! Tvoje role je: {rolename}. Oh. Asi spíš upřímnou soustrast.
+
+msgid Are we happy?
+msgstr Máme radost?
+
+msgid The offensive was successful and the MET army took over FEKT and this server. Glory to the General MET. :generalMET:
+msgstr Ofenzíva byla úspěšná a armáda METu obsadila FEKT a tento server. Sláva generálu MET. :generalMET:
+
+msgid You too can become an ethical hacker.
+msgstr I ty se můžeš stát etickým hackerem.
+
+msgid You cannot make mistake here.
+msgstr Tady nemůžeš šlápnout vedle.

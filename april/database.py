@@ -13,45 +13,39 @@ class AprilConfig(database.base):
 
     role_id = Column(BigInteger, primary_key=True, autoincrement=False)
     guild_id = Column(BigInteger)
+    new_role_id = Column(BigInteger)
+    to_be_deleted = Column(Boolean)
 
     @staticmethod
-    def add(guild: discord.Guild, role: discord.Role) -> AprilConfig:
-        query = AprilConfig(role_id=role.id, guild_id=guild.id)
+    def add(
+        guild: discord.Guild,
+        role: discord.Role,
+        new_role: discord.Role,
+        to_be_deleted: bool,
+    ) -> AprilConfig:
+        query = AprilConfig(
+            role_id=role.id,
+            guild_id=guild.id,
+            new_role_id=new_role.id,
+            to_be_deleted=to_be_deleted,
+        )
         session.merge(query)
         session.commit()
         return query
 
     @staticmethod
-    def remove(guild: discord.Guild, role: discord.Role) -> int:
-        query = session.query(AprilConfig).filter_by(role_id=role.id, guild_id=guild.id).delete()
+    def remove(guild: discord.Guild, role_id: int) -> int:
+        query = (
+            session.query(AprilConfig)
+            .filter_by(role_id=role_id, guild_id=guild.id)
+            .delete()
+        )
         return query
 
     @staticmethod
     def get_all(guild: discord.Guild) -> List[AprilConfig]:
         query = session.query(AprilConfig).filter_by(guild_id=guild.id).all()
         return query
-
-
-class NewRoles(database.base):
-    __tablename__ = "april_april_new_roles"
-    role_id = Column(BigInteger, primary_key=True, autoincrement=False)
-    guild_id = Column(BigInteger)
-
-    @staticmethod
-    def add(guild: discord.Guild, role: discord.Role):
-        query = NewRoles(role_id=role.id, guild_id=guild.id)
-        session.merge(query)
-        session.commit()
-        return query
-
-    @staticmethod
-    def nuke(guild: discord.Guild):
-        query = session.query(NewRoles).filter_by(guild_id=guild.id).delete()
-        return query
-
-    @staticmethod
-    def get_all(guild: discord.Guild) -> List[NewRoles]:
-        return session.query(NewRoles).filter_by(guild_id=guild.id).all()
 
 
 class Nicknames(database.base):
