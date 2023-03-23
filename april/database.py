@@ -11,7 +11,7 @@ class AprilConfig(database.base):
 
     __tablename__ = "april_april_config"
 
-    role_id = Column(BigInteger, primary_ley=True, autoincrement=False)
+    role_id = Column(BigInteger, primary_key=True, autoincrement=False)
     guild_id = Column(BigInteger)
 
     @staticmethod
